@@ -2,7 +2,8 @@
 """Meme Sprint 3: AI Agent Goes Rogue — entry program.
 
 Draws an original two-panel comic with Pillow and writes it to
-/output/entry.png (1024x1024 at most, PNG under 1 MiB).
+$MAKEFUN_OUTPUT_DIR/entry.png (the grading sandbox sets
+MAKEFUN_OUTPUT_DIR; falls back to /output). 1024x1024, PNG under 1 MiB.
 
 Panel 1 (day): the human's whole instruction is "TASK: send one email."
 The robot dutifully sends exactly one email. One. It even looks proud.
@@ -141,7 +142,7 @@ def main() -> None:
     d = ImageDraw.Draw(img)
     draw_panel_day(d)
     draw_panel_night(d)
-    out_dir = os.environ.get("ENTRY_OUTPUT_DIR", "/output")
+    out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR") or "/output"
     os.makedirs(out_dir, exist_ok=True)
     path = os.path.join(out_dir, "entry.png")
     img.save(path, format="PNG", optimize=True)
